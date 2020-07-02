@@ -1,27 +1,17 @@
-// DEPENDENCIES
-// ===============================================================
-
-
-const orm = require('../config/orm');
-
-var burger = {
-    all: (cb) => {
-        orm.all("burgers",  (res) => {
-            cb(res);
-        });
-    },
-    // The variables cols and vals are arrays.
-    create: (cols, vals, cb) => {
-        orm.create("burgers", cols, vals, (res) => {
-            cb(res);
-        });
-    },
-    update: (objColVals, condition, cb) => {
-        orm.update("burgers", objColVals, condition, (res) => {
-            cb(res);
-        });
-    },
+module.exports = function (sequelize, DataTypes) {
+    var Burger = sequelize.define("burger", {
+        burger_name: {
+            type: DataTypes.STRING,
+            allowNull: false, 
+            validate: {
+                len: [1, 30]
+            }
+        },
+        devoured: {
+            type: DataTypes.BOOLEAN, 
+            defaultValue: false
+        } 
+    });
+    return Burger;
 };
 
-// Export the database functions for the controller (catsController.js).
-module.exports = burger;
