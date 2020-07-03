@@ -1,5 +1,3 @@
-'use strict';
-
 //node bullt in packages
 const fs = require('fs');
 const path = require('path');

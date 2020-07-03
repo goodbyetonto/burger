@@ -4,6 +4,7 @@
 // const express = require('express');
 // const router = express.Router();
 const db = require('../models');
+const fs = require('fs'); 
 
 // Routes
 // =============================================================
@@ -12,11 +13,11 @@ module.exports = (app) => {
     // Create all our routes and set up logic within those routes where required.
     app.get("/", (req, res) => {
         db.burger.findAll({}).then((results) => {
-            const hbsObject = {
-                burgers: results
-            };
-            console.log(hbsObject);
-            res.render("index", hbsObject);
+            const burgers = results;
+            fs.writeFile('resp.json', burgers, (err) => {
+                if(err) throw err; 
+            })
+            res.render("index", { burgers: burgers });
         });
     });
 
