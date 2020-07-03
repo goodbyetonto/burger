@@ -1,27 +1,62 @@
 $(document).ready(function () {
 
-    $("#burger_btn").on("click", function(event) {
+    $("#burger_btn").on("click", function (event) {
         event.preventDefault();
 
         //define the structure of the object
-        let postObj = {
+        let newBurger = {
             burger_name: "",
             devoured: false
         }
         //populate this object
-        const burgerName= $("#bu").val();
-        postObj.burger_name = burgerName;
-        console.log(burgerName); 
+        const burgerName = $("#bu").val();
+        newBurger.burger_name = burgerName;
+        console.log(burgerName);
         const isDevoured = $("#devoured").is(":checked");
-        console.log(isDevoured); 
-        postObj.devoured = isDevoured;
+        console.log(isDevoured);
+        newBurger.devoured = isDevoured;
         //ajx post make a req to server to the post route
         $.post(
-            "/api/new",postObj
+            "/api/new", newBurger
         ).then(res => {
             console.log("post was successful", res);
         });
     });
+
+    $(".change-devoured").on("click", (event) => {
+        // Make sure to preventDefault on a submit event.
+        event.preventDefault();
+        var id = $(this).data("id");
+        var newDevoured = $(this).data("newdevoured");
+        let newDevouredState = {
+            devoured: newDevoured
+        };
+        // Send the PUT request.
+        $.put(
+            "/api/burger/" + id, {
+            data: newDevouredState
+        }).then(res => {
+            console.log("Changed devoured to", newDevoured);
+            // Reload the page to get the updated list
+            location.reload();
+        }
+        );
+    });
+
+    $(".delete-burger").on("click", (event) => {
+        // Make sure to preventDefault on a submit event.
+        event.preventDefault();
+        var id = $(this).data("id");
+        // Send the DELETE request.
+        $.delete("/api/burger/" + id, {
+        }).then(() => {
+            console.log("deleted burger", id);
+            // Reload the page to get the updated list
+            location.reload();
+        }
+        );
+    });
+
 
     // // Getting a reference to the input field where user adds a new todo
     // var $newItemInput = $(".form-group");

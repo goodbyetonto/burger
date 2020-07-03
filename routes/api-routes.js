@@ -13,7 +13,7 @@ module.exports = (app) => {
     app.get("/", (req, res) => {
         db.burger.findAll({}).then((results) => {
             const hbsObject = {
-                burger: results
+                burgers: results
             };
             console.log(hbsObject);
             res.render("index", hbsObject);
@@ -30,6 +30,8 @@ module.exports = (app) => {
         .then((results) => {
             // Send back the ID of the new burger
             res.json(results);
+            const hbsObject = {burger: results};
+            res.render("index", hbsObject); 
         });
     });
 
