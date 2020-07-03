@@ -22,6 +22,7 @@ app.engine("handlebars", exphbs({
     defaultLayout: "main",
     partialsDir: "views/partial"
 }));
+
 app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.
