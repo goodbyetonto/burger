@@ -14,9 +14,11 @@ module.exports = (app) => {
     app.get("/", (req, res) => {
         db.burger.findAll({}).then((results) => {
             const burgers = results;
+            console.log(burgers); 
             fs.writeFile('resp.json', burgers, (err) => {
                 if(err) throw err; 
             })
+            // res.send(burgers); 
             res.render("index", { burgers: burgers });
         });
     });

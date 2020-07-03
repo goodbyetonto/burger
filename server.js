@@ -18,11 +18,14 @@ app.use(express.static("public"));
 // Set Handlebars.
 const exphbs = require("express-handlebars");
 
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.engine("handlebars", exphbs({
+    defaultLayout: "main",
+    partialsDir: "views/partial"
+}));
 app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.
-require("./routes/api-routes.js")(app); 
+require("./routes/api-routes.js")(app);
 
 // Sync all models prior to starting Express Server
 db.sequelize.sync().then(() => {

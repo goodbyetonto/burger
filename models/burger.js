@@ -1,4 +1,4 @@
-const { Sequelize } = require("sequelize/types");
+// const { Sequelize } = require("sequelize/types");
 
 module.exports = function (sequelize, DataTypes) {
     var Burger = sequelize.define("burger", {

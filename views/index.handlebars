@@ -4,24 +4,23 @@
 
 <ul>
     {{#each burgers}}
-    {{this}}
-        {{#unless this.dataValues.devoured}}
-        {{!-- {{> burgers/burger-block devoured=true}} --}}
-            {{this.dataValues.id}} {{this.dataValues.burger_name}}
+        {{#dataValues}}
+        {{#unless devoured}} 
+            {{> burger-block devoured=true}}
         {{/unless}}
+        {{/dataValues}}
     {{/each}}
 </ul>
 
 <h2>Burgers that are devoured!</h2>
 
 <ul>
-    {{burger}}
-    {{#each burger}}
-        {{#if this.devoured}}
-            {{!-- {{> burgers/burger-block devoured=false}} --}}
-            {{this.id}} {{this.burger_name}}
+    {{#each burgers}}
+        {{#dataValues}}
+        {{#if devoured}}
+            {{> burger-block devoured=false}} 
         {{/if}}
-        {{this}}
+        {{/dataValues}}
     {{/each}}
 </ul>
 
